@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Working With Data in Excel: How AI Uses Your Spreadsheet</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#F4F7FB;--card:#fff;--ink:#14213D;--mut:#55657E;--line:#D6DFEA;--blue:#233E8E;--green:#1E9E5A;--org:#D9822B;--red:#D6453D;--hl:#FFF4DE;--feat:#DCEBFA;--targ:#FBE3E1}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0E1626;--card:#162239;--ink:#EAF0FA;--mut:#9FB0CC;--line:#2A3B58;--blue:#8FB0FF;--green:#5FD38D;--org:#F2A65A;--red:#FF8A80;--hl:#3A3120;--feat:#1E3550;--targ:#4A2327}}
+:root[data-theme="dark"]{--bg:#0E1626;--card:#162239;--ink:#EAF0FA;--mut:#9FB0CC;--line:#2A3B58;--blue:#8FB0FF;--green:#5FD38D;--org:#F2A65A;--red:#FF8A80;--hl:#3A3120;--feat:#1E3550;--targ:#4A2327}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:900px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:28px;margin:0 0 6px;color:var(--blue)}h2{font-size:21px;margin:34px 0 10px;color:var(--blue)}h3{font-size:16px;margin:0 0 6px}
+.sub{color:var(--mut);margin:0 0 16px}.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.tag{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--org)}
+.card ol{margin:6px 0 0;padding-left:20px;font-size:14.5px}.card ol li{margin:3px 0}
+kbd{background:var(--feat);border:1px solid var(--line);border-radius:5px;padding:0 5px;font-size:13px}
+.legend span{display:inline-block;padding:2px 10px;border-radius:999px;font-size:13px;font-weight:600;margin-right:6px}
+.f{background:var(--feat)}.t{background:var(--targ)}
+.bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0}
+button,select{font:inherit;padding:7px 12px;border:1.5px solid var(--line);border-radius:9px;background:var(--card);color:var(--ink);cursor:pointer}
+button:hover{border-color:var(--blue)}button.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.fx{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--card);font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13.5px;margin:8px 0}
+.fx b{padding:6px 10px;background:var(--feat);border-right:1px solid var(--line);font-style:italic}.fx span{padding:6px 10px;overflow-x:auto;white-space:nowrap}
+.wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+table.xl{border-collapse:collapse;width:100%;min-width:640px;font-size:14.5px}
+.xl th,.xl td{border:1px solid var(--line);padding:5px 9px;text-align:left}.xl th{background:var(--bg);color:var(--mut);font-weight:600;text-align:center}
+.xl td.rn{background:var(--bg);color:var(--mut);text-align:center;width:42px}
+.xl th.feat{background:var(--feat)}.xl th.targ{background:var(--targ)}
+.xl tr.del td{opacity:.35;text-decoration:line-through}.xl input{width:80px;font:inherit;padding:2px 4px;border:1px solid var(--line);border-radius:5px;background:var(--card);color:var(--ink)}
+.xl td.sum{cursor:pointer;font-weight:700}.xl td.sum:hover{background:var(--hl)}.xl td.err{color:var(--red)}
+.xs{background:none;border:0;padding:0 4px;color:var(--red);font-size:16px}
+.charts{display:flex;gap:18px;align-items:flex-end;height:170px;padding:10px 0;justify-content:center}
+.col{width:90px;text-align:center;font-size:13px}.col i{display:block;border-radius:6px 6px 0 0;transition:height .3s;margin:0 auto;width:60px}
+.msg{padding:10px 12px;border-radius:10px;margin:8px 0;background:var(--hl);font-size:15px}.msg.bad{background:var(--targ)}.msg.ok{background:var(--feat)}
+.q{margin:10px 0}.q button{display:block;width:100%;text-align:left;margin:5px 0}.q button.ok{border-color:var(--green);background:rgba(30,158,90,.15)}.q button.bad{border-color:var(--red);background:rgba(214,69,61,.14)}
+.fb{display:none;font-size:14.5px;margin-top:4px}.fb.show{display:block}
+</style></head>
+<body><main>
+<h1>Working With Data in Excel</h1>
+<p class="sub">Lesson 4 · Spreadsheets and Charts. See how the same steps you learned in class are done in Excel, then try them on a live sheet.</p>
+<div class="card"><span class="tag">Big question</span><h3>How does data handling affect AI decisions?</h3>
+<p style="margin:0">An AI learns patterns from <b>clean, well-structured data</b>. Errors or missing rows can lead to wrong or unfair predictions, so people must prepare and check the data.</p></div>
+
+<h2>The four skills, and how to do them in Excel</h2>
+<div class="grid">
+<div class="card"><span class="tag">1 · Structure</span><h3>Features and target</h3><p class="legend" style="margin:4px 0"><span class="f">Features = inputs</span><span class="t">Target = what AI predicts</span></p>
+<ol><li>Put <b>one example per row</b>.</li><li>Give every column a clear <b>header</b> in row 1.</li><li>Decide which columns are inputs and which one is the target.</li></ol></div>
+<div class="card"><span class="tag">2 · Sort and filter</span><h3>Find what matters</h3>
+<ol><li>Click inside the table.</li><li><kbd>Data</kbd> → <kbd>Sort</kbd> → choose VehicleCount, <b>Largest to Smallest</b>.</li><li><kbd>Data</kbd> → <kbd>Filter</kbd>, then open the arrow on Location and tick <b>SchoolZone</b>.</li></ol></div>
+<div class="card"><span class="tag">3 · Summaries</span><h3>Formulas as evidence</h3>
+<ol><li>Click an empty cell and type <kbd>=</kbd>.</li><li>Use <kbd>AVERAGEIFS</kbd> to average rows that match, and <kbd>COUNTIF</kbd> to count them.</li><li>Press <kbd>Enter</kbd>, then check the number against the rows.</li></ol></div>
+<div class="card"><span class="tag">4 · Charts</span><h3>See the pattern</h3>
+<ol><li>Select the labels and the values.</li><li><kbd>Insert</kbd> → <kbd>Column Chart</kbd>.</li><li>Add a title, then say what pattern you see and what an AI might predict.</li></ol></div>
+</div>
+
+<h2>Live sheet: try it yourself</h2>
+<p class="sub">This is the vehicle dataset from Activity 2. Columns A and B are the <b>features</b>. Column C is the <b>target</b>. Edit a number, delete a row, sort or filter, and watch the formulas, chart and AI message update.</p>
+<div class="bar"><button id="bs">Sort: VehicleCount, largest first</button><label>Filter Location: <select id="fl"><option>All</option><option>SchoolZone</option><option>Park</option></select></label>
+<button id="rs">Reset</button></div>
+<div class="bar"><span class="tag" style="margin-right:4px">Challenges</span><button id="c1">Typing error: 350 → 3500</button><button id="c2">Missing data: delete PM rows</button></div>
+<div class="fx"><b>fx</b><span id="fxt">Click a result in column F to see its formula</span></div>
+<div class="wrap"><table class="xl"><thead><tr><th></th><th class="feat">A</th><th class="feat">B</th><th class="targ">C</th><th></th><th>E</th><th>F</th></tr></thead><tbody id="tb"></tbody></table></div>
+<p id="why" class="sub" style="margin-top:6px">Tip: each result in column F is a formula. Click one.</p>
+
+<h2>Chart: SchoolZone average by time</h2>
+<div class="card"><div class="charts" id="ch"></div></div>
+<div id="ai" class="msg ok"></div>
+
+<h2>Check your understanding</h2>
+<div class="card" id="qs"></div>
+</main>
+<script>
+var orig=[["SchoolZone","AM",320],["SchoolZone","AM",350],["SchoolZone","AM",345],["SchoolZone","PM",600],["SchoolZone","PM",650],["SchoolZone","PM",670],["Park","AM",210],["Park","PM",430]];
+var D,sorted=false,filt="All",sel=null;
+function reset(){D=orig.map(function(r){return{l:r[0],t:r[1],c:r[2],on:true}});sorted=false;filt="All";sel=null;document.getElementById("fl").value="All";document.getElementById("bs").classList.remove("on");render();}
+function avg(l,t){var a=D.filter(function(r){return r.on&&r.l===l&&r.t===t});if(!a.length)return null;return a.reduce(function(s,r){return s+r.c},0)/a.length;}
+function fmt(v){return v===null?"#DIV/0!":(Math.round(v*10)/10).toString();}
+var FM={f1:['=AVERAGEIFS(C2:C9,A2:A9,"SchoolZone",B2:B9,"AM")','Averages the VehicleCount of rows where Location is SchoolZone and Time is AM.'],f2:['=AVERAGEIFS(C2:C9,A2:A9,"SchoolZone",B2:B9,"PM")','Averages the VehicleCount of rows where Location is SchoolZone and Time is PM.'],f3:['=F2-F1','PM average minus AM average: the difference between the two results.'],f4:['=COUNTIF(A2:A9,"SchoolZone")','Counts how many rows have Location = SchoolZone.']};
+function render(){var list=D.slice();if(sorted)list.sort(function(a,b){return b.c-a.c});
+ var am=avg("SchoolZone","AM"),pm=avg("SchoolZone","PM"),n=D.filter(function(r){return r.on&&r.l==="SchoolZone"}).length;
+ var S=[["SchoolZone AM average",fmt(am),"f1"],["SchoolZone PM average",fmt(pm),"f2"],["Difference (PM − AM)",(am===null||pm===null)?"#DIV/0!":fmt(pm-am),"f3"],["SchoolZone rows",String(n),"f4"]];
+ var h='<tr><td class="rn">1</td><td><b>Location</b></td><td><b>Time</b></td><td><b>VehicleCount</b></td><td></td><td colspan="2"><b>Summary (formulas)</b></td></tr>';
+ var vis=0;list.forEach(function(r,i){if(filt!=="All"&&r.l!==filt)return;var idx=D.indexOf(r);h+='<tr class="'+(r.on?"":"del")+'"><td class="rn">'+(i+2)+'</td><td>'+r.l+'</td><td>'+r.t+'</td><td><input type="number" value="'+r.c+'" data-i="'+idx+'" '+(r.on?"":"disabled")+'> <button class="xs" data-d="'+idx+'" title="Delete or restore row">'+(r.on?"✕":"↺")+'</button></td><td></td>';
+  var s=S[vis];h+=s?'<td>'+s[0]+'</td><td class="sum'+(s[1]==="#DIV/0!"?" err":"")+'" data-f="'+s[2]+'">'+s[1]+'</td>':'<td></td><td></td>';h+='</tr>';vis++;});
+ for(;vis<4;vis++){var s=S[vis];h+='<tr><td class="rn">·</td><td></td><td></td><td></td><td></td><td>'+s[0]+'</td><td class="sum'+(s[1]==="#DIV/0!"?" err":"")+'" data-f="'+s[2]+'">'+s[1]+'</td></tr>';}
+ document.getElementById("tb").innerHTML=h;
+ var mx=Math.max(am||0,pm||0,1);document.getElementById("ch").innerHTML=[["AM",am,"#4C9BE8"],["PM",pm,"#F29E4C"]].map(function(x){return'<div class="col"><b>'+(x[1]===null?"No data":fmt(x[1]))+'</b><i style="height:'+(x[1]===null?4:Math.max(4,x[1]/mx*120))+'px;background:'+x[2]+'"></i>'+x[0]+'</div>'}).join("");
+ var big=D.some(function(r){return r.on&&r.c>1000}),m,cls="msg ok";
+ if(am===null||pm===null){m="⚠ Missing data: with no "+(pm===null?"PM":"AM")+" rows the formula shows #DIV/0!. The AI has no pattern to learn for that time, so its predictions would be unreliable or unfair.";cls="msg bad";}
+ else if(big){m="⚠ One value looks unusually large. A typing error pushes the average to "+fmt(am)+" and can mislead the AI. Humans must check the data before it is used.";cls="msg bad";}
+ else if(pm>am)m="Pattern: PM traffic ("+fmt(pm)+") is higher than AM ("+fmt(am)+"), so an AI might predict more congestion in PM.";
+ else m="Pattern: AM traffic ("+fmt(am)+") is higher than or equal to PM ("+fmt(pm)+"), so an AI might predict less congestion in PM.";
+ var a=document.getElementById("ai");a.className=cls;a.textContent=m;
+ if(sel){document.getElementById("fxt").textContent=FM[sel][0];document.getElementById("why").textContent=FM[sel][1];}}
+document.addEventListener("input",function(e){if(e.target.dataset&&e.target.dataset.i!==undefined){D[+e.target.dataset.i].c=+e.target.value||0;var f=e.target;render();var n=document.querySelector('input[data-i="'+f.dataset.i+'"]');if(n)n.focus();}});
+document.addEventListener("click",function(e){var t=e.target;if(t.dataset.d!==undefined){var r=D[+t.dataset.d];r.on=!r.on;render();}else if(t.dataset.f){sel=t.dataset.f;render();}});
+document.getElementById("bs").onclick=function(){sorted=!sorted;this.classList.toggle("on",sorted);render();};
+document.getElementById("fl").onchange=function(){filt=this.value;render();};
+document.getElementById("rs").onclick=reset;
+document.getElementById("c1").onclick=function(){reset();D[1].c=3500;render();};
+document.getElementById("c2").onclick=function(){reset();D.forEach(function(r){if(r.t==="PM"&&r.l==="SchoolZone")r.on=false});render();};
+var Q=[["Which formula counts the SchoolZone rows?",['=COUNTIF(A2:A9,"SchoolZone")','=SUM(C2:C9)','=AVERAGE(A2:A9)','=SORT(A2:A9)'],0,"COUNTIF counts the rows that match a condition."],["Which column is the target in this sheet?",["A: Location","B: Time","C: VehicleCount","Both A and B"],2,"The target is what the AI predicts: VehicleCount. Location and Time are the features."],["You delete the PM rows and the PM average shows #DIV/0!. What does this mean for an AI?",["It can still predict PM traffic perfectly","It has no PM data to learn from, so its PM predictions would be unreliable","Nothing changes","It will predict only AM traffic"],1,"Missing data leaves gaps in what the AI learns, which can make predictions wrong or unfair."]];
+document.getElementById("qs").innerHTML=Q.map(function(q,i){return'<div class="q" data-q="'+i+'"><b>'+(i+1)+'. '+q[0]+'</b>'+q[1].map(function(o,j){return'<button data-o="'+j+'">'+o.replace(/</g,"&lt;")+'</button>'}).join("")+'<div class="fb"></div></div>'}).join("");
+document.getElementById("qs").addEventListener("click",function(e){var b=e.target.closest("button[data-o]");if(!b)return;var d=b.closest(".q"),q=Q[+d.dataset.q],fb=d.querySelector(".fb");if(fb.classList.contains("show"))return;var ok=+b.dataset.o===q[2];b.classList.add(ok?"ok":"bad");d.querySelectorAll("button")[q[2]].classList.add("ok");fb.classList.add("show");fb.innerHTML=(ok?"<b>Correct.</b> ":"<b>Not quite.</b> ")+q[3];});
+reset();
+</script></body></html>
